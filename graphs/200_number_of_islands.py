@@ -27,3 +27,36 @@ class Solution:
                     dfs(row, col)
 
         return islands
+    
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        directions = [[0,1],[0,-1],[-1,0],[1,0]]
+
+        def valid(x, y):
+            if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == "1":
+                return True
+
+            return False
+
+        seen = set()
+
+        def dfs(x, y):
+            for row, col in directions:
+                next_x = x + row
+                next_y = y + col
+                if valid(next_x, next_y) and (next_x, next_y) not in seen:
+                    seen.add((next_x, next_y))
+                    dfs(next_x,next_y)
+
+        islands = 0
+        
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == "1" and (i, j) not in seen:
+                    islands += 1
+                    seen.add((i,j))
+                    dfs(i,j)
+
+        return islands
+
