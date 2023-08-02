@@ -29,3 +29,35 @@ class Solution:
 
                 while lo < hi and nums[lo] == nums[lo-1]:
                     lo += 1
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+
+        for i in range(len(nums)):
+            if nums[i] > 0:
+                break
+            elif i == 0 or nums[i]!= nums[i-1]:
+                self.two_sum(i, nums, res)
+        return res
+    def two_sum(self, i, nums, res):
+        
+        left = i + 1
+        right = len(nums) - 1
+        print(i, left, right)
+        while left < right:
+            summ = nums[i] + nums[left] + nums[right]
+
+            if summ > 0:
+                right -= 1
+            elif summ < 0:
+                left += 1
+            else:
+                res.append([nums[i], nums[left], nums[right]])
+                left += 1
+                right -= 1
+
+                while left < right and nums[left] == nums[left-1]:
+                    left += 1
+
