@@ -60,3 +60,25 @@ class Solution:
 
         return res if res != len(nums) + 1 else 0
 
+
+
+
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        # [2,3,1,2,4,3]
+        #  l
+        #. r
+
+        left = 0
+        summation = 0
+        min_len = len(nums) + 1
+
+        for right in range(len(nums)):
+            summation += nums[right]
+
+            while summation >= target:
+                min_len = min(min_len, right - left + 1)
+                summation -= nums[left]
+                left += 1
+        
+        return min_len if min_len != len(nums) + 1 else 0

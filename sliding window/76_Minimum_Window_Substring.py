@@ -72,3 +72,40 @@ class Solution:
         
         return s[r:l+1] if length != float('inf') else ""
 
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if len(t) > len(s) or t == "": 
+            return ""
+        left = 0
+        t_count = collections.Counter(t)
+        t_found = collections.defaultdict(int)
+
+        res = [-1, -1]
+        length = float('inf')
+        need = len(t_count)
+        have = 0
+
+        for right in range(len(s)):
+            char = s[right]
+            t_found[char] += 1
+
+            if char in t_count and t_found[char] == t_count[char]:
+                have += 1
+
+            while have == need:
+                if right -left + 1 < length:
+                    res = [left, right]
+                    length = right - left + 1
+                    print(res)
+                    print(s)
+
+                left_char = s[left]
+                t_found[left_char] -= 1
+                left += 1
+
+                if left_char in t_count and t_found[left_char]< t_count[left_char]:
+                    have -= 1
+
+        l, r = res
+
+        return s[l:r+1] if length != float('inf') else ""
