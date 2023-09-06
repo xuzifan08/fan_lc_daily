@@ -34,3 +34,22 @@ class Solution:
 
         return ans
 
+
+
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+
+        def backtrack(curr, i):
+            if len(curr) == k:
+                res.append(curr[:])
+
+            for num in range(i, n+1):
+                if num not in curr:
+                    curr.append(num)
+                    backtrack(curr, num)
+                    curr.pop()
+
+        backtrack([],1)
+
+        return res
