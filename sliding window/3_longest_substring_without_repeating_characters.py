@@ -16,25 +16,25 @@ class Solution:
     
 
 
-    class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        # "abcabcbb"
-        # "pwwkew"
-        counter = collections.defaultdict(int)
-        max_len = 0
-        left = 0
+class Solution:
+def lengthOfLongestSubstring(self, s: str) -> int:
+    # "abcabcbb"
+    # "pwwkew"
+    counter = collections.defaultdict(int)
+    max_len = 0
+    left = 0
 
-        for right in range(len(s)):
-            counter[s[right]] += 1
+    for right in range(len(s)):
+        counter[s[right]] += 1
 
-            while counter[s[right]] > 1:
-                counter[s[left]] -= 1
-                left += 1
-            max_len = max(max_len, right - left + 1)
+        while counter[s[right]] > 1:
+            counter[s[left]] -= 1
+            left += 1
+        max_len = max(max_len, right - left + 1)
 
-        return max_len
-    
-    # for every iteration, check if this val appears more than once, if so, keep shrinking left side until it decreases to 
+    return max_len
+
+# for every iteration, check if this val appears more than once, if so, keep shrinking left side until it decreases to 
 
 
 
