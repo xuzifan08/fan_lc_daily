@@ -38,3 +38,20 @@ class Solution:
     
 
 ## that's why we want to start from the end, it's easier for indexing
+
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[-1] = True
+        # "leetcode"
+        #  01234567
+        for i in range(len(s)-1, -1, -1):
+            for w in wordDict:
+                if i + len(w) <= len(s) and s[i:i+len(w)] == w:
+                    dp[i] = dp[i + len(w)]
+                if dp[i]: # this conition is important to prevent setting dp[i] to False again
+                    break
+
+
+        return dp[0]
