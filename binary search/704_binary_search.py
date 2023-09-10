@@ -36,3 +36,24 @@ class Solution:
                 left = mid + 1
 
         return -1
+    
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        # if you want to return in while loop, include "=" in the condition
+        left = 0
+        right = len(nums) - 1
+        # [-1,0,3,5,9,12]
+        #.  0,1,2,3,4,5
+
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+
+            elif nums[mid] > target:
+                right = mid - 1
+            else:
+                left = mid + 1
+
+        return -1
