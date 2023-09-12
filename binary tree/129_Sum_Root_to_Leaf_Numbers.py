@@ -27,4 +27,24 @@ class Solution:
 
         return root_to_leaf
 
-        
+
+
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        stack = [(root, root.val)]
+
+        summation = 0
+
+        while stack:
+            node, sum_so_far = stack.pop()
+            
+            if not node.left and not node.right:
+                summation += sum_so_far
+
+            if node.left:
+                stack.append((node.left, sum_so_far * 10 + node.left.val))
+            if node.right:
+                stack.append((node.right, sum_so_far * 10 + node.right.val))
+
+
+        return summation
