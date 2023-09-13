@@ -60,3 +60,41 @@ class Solution:
 
         return islands
 
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        rows = len(grid)
+        cols = len(grid[0])
+
+        directions = [[0,1],
+                      [0,-1],
+                      [1,0],
+                      [-1,0]]
+        
+        def valid(r,c):
+            return r >= 0 and r < rows and c >= 0 and c < cols and grid[r][c] == "1"
+
+        seen = set()
+        islands = 0
+
+        def dfs(r,c):
+            # iterate the neighbors
+            for direction_r, direction_c in directions:
+                next_r = direction_r + r
+                next_c = direction_c + c
+                if valid(next_r, next_c) and (next_r, next_c) not in seen:
+                    print(next_r, next_c)
+                    seen.add((next_r, next_c))
+                    dfs(next_r, next_c)
+
+
+        for i in range(rows):
+            for j in range(cols):
+                # call the dfs to iterate all the node
+                if grid[i][j] == "1" and (i, j) not in seen:
+                    # print(i, j)
+                    seen.add((i,j))
+                    islands += 1
+                    dfs(i, j)
+
+        return islands

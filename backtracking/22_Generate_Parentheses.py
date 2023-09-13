@@ -20,3 +20,28 @@ class Solution:
                 stack.pop()
         backtrack(0,0)
         return res
+    
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        # the point is to figure out the constrains
+        res = []
+        stack = []
+
+        def backtrack(stack, open, close):
+            if open == close == n:
+                res.append("".join(stack))
+            
+            if open < n:
+                stack.append("(")
+                backtrack(stack, open + 1, close)
+                stack.pop()
+
+            if open > close:
+                stack.append(")")
+                backtrack(stack, open, close + 1)
+                stack.pop()
+
+        backtrack(stack, 0,0)
+
+        return res
