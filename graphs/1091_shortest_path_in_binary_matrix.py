@@ -56,3 +56,35 @@ class Solution:
                     visited.add((next_r, next_c))
 
         return -1
+    
+
+from collections import deque
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        if grid[0][0] != 0:
+            return -1
+
+
+        def valid(r, c):
+            return 0<=r<len(grid) and 0<=c<len(grid[0]) and grid[r][c]== 0
+        
+        visited = set()
+        queue = collections.deque([(0,0,1)])
+
+        directions = [[0,1],[1,0],[0,-1],[-1,0],[1,1],[-1,-1],[1,-1],[-1,1]]
+
+        while queue:
+            r, c, paths = queue.popleft()
+
+            if (r, c) == (len(grid)-1, len(grid)-1):
+                return paths
+
+            for dir_r, dir_c in directions:
+                next_r = r + dir_r
+                next_c = c + dir_c
+
+                if valid(next_r, next_c) and (next_r, next_c) not in visited:
+                    queue.append((next_r, next_c, paths + 1))
+                    visited.add((next_r, next_c))
+
+        return -1
