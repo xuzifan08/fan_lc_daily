@@ -57,3 +57,29 @@ class Solution:
                     q.append(node.right)
 
         return root
+    
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root:
+            return None
+
+
+        queue = collections.deque([root])
+
+        while queue:
+            level_length = len(queue)
+
+            for i in range(level_length):
+                node = queue.popleft()
+                if i + 1 == level_length:
+                    node.next = None
+                else:
+                    node.next = queue[0]
+
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+
+        return root
