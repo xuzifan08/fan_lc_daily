@@ -31,3 +31,31 @@ class Solution:
 
         return dummy.next
 
+class Solution:
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        #  dummy -> 1 -> <- 2 <-3 <- 4   5
+        #         left_Node        prev  curr
+
+        dummy = ListNode(-1, head)
+        dummy.next = head
+
+        prev = dummy
+        curr = head
+
+        for i in range(left - 1):
+            prev = prev.next
+            curr = curr.next
+
+        left_node = prev
+
+        for i in range(right - left + 1):
+            nxt = curr.next
+            curr.next = prev
+
+            prev = curr
+            curr = nxt
+
+        left_node.next.next = curr
+        left_node.next = prev
+
+        return dummy.next

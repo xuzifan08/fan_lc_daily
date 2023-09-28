@@ -63,3 +63,33 @@ class Solution:
             pt.next = ListNode(carry)
 
         return dummy.next
+
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(-1)
+        head = dummy
+        carry = 0
+
+        while l1 or l2:
+            if l1 and l2:
+                carry += (l1.val + l2.val)
+                l1 = l1.next
+                l2 = l2.next
+
+            elif l1:
+                carry += l1.val
+                l1 = l1.next
+            else:
+                carry += l2.val
+                l2 = l2.next
+
+            head.next = ListNode(carry % 10)
+            head = head.next
+            carry //= 10
+
+
+        if carry:
+            head.next = ListNode(carry)
+
+        return dummy.next
