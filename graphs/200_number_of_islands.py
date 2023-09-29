@@ -98,3 +98,36 @@ class Solution:
                     dfs(i, j)
 
         return islands
+    
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        # (r, c) represents a node
+        rows = len(grid)
+        cols = len(grid[0])
+
+        directions = [[0,1],[0,-1],[1,0],[-1,0]]
+
+        seen = set()
+        
+        def valid(r, c):
+            return  0<= r < rows and 0<= c < cols and grid[r][c] == "1"
+
+        def dfs(r, c):
+            for next_r, next_c in directions:
+                row = next_r + r
+                col = next_c + c
+                if valid(row, col) and (row, col) not in seen:
+                    seen.add((row, col))
+                    dfs(row, col)
+                    
+        islands = 0
+
+        for r in range(rows):
+            for c in range(cols):
+                if (r, c) not in seen and grid[r][c] == "1":
+                    islands += 1
+                    seen.add((r, c))
+                    dfs(r,c)
+
+
+        return islands
