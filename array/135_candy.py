@@ -16,3 +16,25 @@ class Solution:
                 # print(i, candy)
 
         return sum(candy)
+    
+
+class Solution:
+    def candy(self, ratings: List[int]) -> int:
+        # [1,0,2]
+
+        #.[1 1 1]
+        # [ 1,1 ,2]
+        #[2,1,2]
+
+        candies = [1] * len(ratings)
+
+        for i in range(1, len(ratings)):
+            if ratings[i] > ratings[i-1] and candies[i] <= candies[i-1]:
+                candies[i] = candies[i-1] + 1
+        print(candies)
+        
+        for i in range(len(ratings) - 2, -1, -1):
+            if ratings[i] > ratings[i + 1] and candies[i] <= candies[i + 1]:
+                candies[i] = candies[i + 1] + 1
+        print(candies)
+        return sum(candies)
