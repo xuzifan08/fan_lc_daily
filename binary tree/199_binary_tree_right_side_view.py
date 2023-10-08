@@ -25,3 +25,28 @@ class Solution:
             res.append(level[-1])
 
         return res
+
+
+
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        q = collections.deque([root])
+        res = []
+
+
+        while q:
+            level_len = len(q)
+
+            for i in range(level_len):
+                node = q.popleft()
+                if i == level_len - 1:
+                    res.append(node.val)
+
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+        return res
+                

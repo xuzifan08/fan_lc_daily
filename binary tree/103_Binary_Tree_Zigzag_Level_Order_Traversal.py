@@ -34,3 +34,32 @@ class Solution:
         return res
 
 
+class Solution:
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        q = collections.deque([root])
+        res = []
+        zigzag = False
+
+
+        while q:
+            level_len = len(q)
+            level = []
+
+            for i in range(level_len):
+                node = q.popleft()
+                level.append(node.val)
+
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+
+            if zigzag:
+                res.append(level[::-1])
+            else:
+                res.append(level)
+
+            zigzag = not zigzag
+        return res

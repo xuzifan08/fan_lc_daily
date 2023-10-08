@@ -20,3 +20,27 @@ class Solution:
             return memo[i]# min cost to get to this point
 
         return dp(len(cost))
+    
+
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        memo = {}
+
+        def dp(i):
+            # base case
+            if i == 0:
+                memo[i] = 0
+                return 0
+
+            if i == 1:
+                memo[i] = 0
+                return 0
+
+            if i in memo:
+                return memo[i]
+
+            memo[i] = min(dp(i - 1) + cost[i-1], dp(i-2) + cost[i-2])
+
+            return memo[i]# min cost to climb to i
+        return dp(len(cost))
+
