@@ -51,3 +51,32 @@ class Solution:
                 maxR = max(maxR, height[r])
 
         return water
+    
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        l = 0
+        r = len(height) - 1
+        maxL = height[l]
+        maxR = height[r]
+
+        water = 0
+
+        while l < r:
+            if height[l] < height[r]:
+                l += 1
+                water += max(0, maxL - height[l])
+                maxL = max(maxL, height[l])
+            else:
+                r -= 1
+                water += max(0, maxR - height[r])
+                maxR = max(maxR, height[r])               
+
+        return water
+
+# [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]height
+#           l              r
+# [0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]maxL
+
+# [3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1, 0]maxR
+

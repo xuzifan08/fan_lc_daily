@@ -34,3 +34,24 @@ class Solution:
                     dp[c] = dp[c] + dp[c+1]
 
         return dp[0]
+    
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        rows = len(obstacleGrid)
+        cols = len(obstacleGrid[0])
+
+        dp = [[0 for j in range(cols)] for i in range(rows)]
+        dp[rows-1][cols-1] = 1
+
+        for i in reversed(range(rows)):
+            for j in reversed(range(cols)):
+                if obstacleGrid[i][j]:
+                    dp[i][j] = 0
+                elif i + 1 < rows and j + 1 < cols:
+                    dp[i][j] = dp[i + 1][j] + dp[i][j + 1]
+                elif i == rows -1 and j + 1 < cols:
+                    dp[i][j] = dp[i][j + 1]
+                elif i + 1 < rows and j + 1 == cols:
+                    dp[i][j] = dp[i+1][j]
+ 
+        return dp[0][0]
