@@ -22,3 +22,29 @@ class Solution:
 
 
         return lps(0, len(s)-1)#longest palindromic subsequence
+    
+
+class Solution:
+    def longestPalindromeSubseq(self, s: str) -> int:
+        # "bbbab"
+        cache = {}
+
+        def lps(i,j):
+            if i > j:
+                return 0
+                
+            if i == j:
+                return 1
+
+            if (i,j) in cache:
+                return cache[(i,j)]
+
+            if s[i] == s[j]:
+                cache[(i, j)] = lps(i+1, j-1) + 2
+            else:
+                cache[(i, j)] = max(lps(i + 1,j), lps(i, j-1))
+
+            return cache[(i, j)]# longest palindromic subsequence
+
+
+        return lps(0, len(s) - 1)

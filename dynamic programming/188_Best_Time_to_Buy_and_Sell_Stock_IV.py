@@ -21,3 +21,26 @@ class Solution:
 
             return ans
         return dp(0, False, k)
+    
+
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        cache = {}
+
+        def dp(i, hold, remain):
+            if i == len(prices) or remain == 0:
+                return 0
+            if (i, hold, remain) in cache:
+                return cache[((i, hold, remain))]
+
+            # skip the tranaction
+            ans = dp(i + 1, hold, remain)
+            if hold:
+                ans = max(ans, prices[i] + dp(i+1, not hold, remain - 1))
+            else:
+                ans = max(ans, -prices[i] + dp(i+1, not hold, remain))
+
+            cache[(i, hold, remain)] = ans
+            return ans
+
+        return dp(0, False, k)

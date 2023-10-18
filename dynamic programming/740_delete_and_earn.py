@@ -21,3 +21,28 @@ class Solution:
 
         print(dp)
         return max(dp)
+    
+class Solution:
+    def deleteAndEarn(self, nums: List[int]) -> int:
+        # maximize the number of points
+        count = Counter(nums)
+        nums = sorted(list(set(nums)))
+        
+        dp = [0] * len(nums)
+        dp[0] = nums[0] * count[nums[0]]
+        if len(dp) == 1:
+            return dp[0]
+
+        if nums[1] - 1 == nums[0]:
+            dp[1] = max(nums[1] * count[nums[1]], dp[0])
+        else:
+            dp[1] = dp[0] + nums[1] * count[nums[1]]
+
+        for i in range(2, len(nums)):
+            if nums[i] - 1 == nums[i-1]:
+                dp[i] = max(dp[i - 2] + nums[i] * count[nums[i]], dp[i-1])
+            else:
+                dp[i] = dp[i - 1] + nums[i] * count[nums[i]]
+
+
+        return dp[-1]
