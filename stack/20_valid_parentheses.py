@@ -39,3 +39,27 @@ class Solution:
                 else:
                     stack.append(s[i])
         return True if not stack else False
+    
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        check = {
+            '(':')', 
+            '{':'}', 
+            '[':']'
+        }
+        # s = "()[]{}"
+        # 
+        stack = []
+        for c in s:
+            if not stack:
+                stack.append(c)
+            elif stack[-1] in check:
+                if check[stack[-1]] == c:
+                    stack.pop()
+                else:
+                    stack.append(c)
+            else:
+                stack.append(c)
+        
+        return True if not stack else False

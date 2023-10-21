@@ -56,3 +56,21 @@ class Solution:
             length = max(length, right - left + 1)
 
         return length
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # "abcbabcbb"
+        length = 0
+        left = 0
+        count = collections.defaultdict(int)
+
+        for right in range(len(s)):
+            count[s[right]] += 1
+
+            while count[s[right]] > 1:
+                count[s[left]] -= 1
+                left += 1
+
+            length = max(length, right - left + 1)
+
+        return length
