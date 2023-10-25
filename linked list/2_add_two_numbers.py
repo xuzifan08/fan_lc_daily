@@ -93,3 +93,29 @@ class Solution:
             head.next = ListNode(carry)
 
         return dummy.next
+    
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(-1)
+        p1 = l1
+        p2 = l2
+        carry = 0
+        head = dummy
+
+        while p1 or p2:
+            if p1:
+                carry += p1.val
+                p1 = p1.next
+            if p2:
+                carry += p2.val
+                p2 = p2.next
+
+            head.next = ListNode(carry % 10)
+            head = head.next
+            carry //= 10
+
+        if carry:
+            head.next = ListNode(carry)
+
+        return dummy.next
