@@ -131,3 +131,33 @@ class Solution:
 
 
         return islands
+
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+
+        # (r, c) represents a node
+        seen = set()
+        directions = [[0,1], [0,-1],[1,0],[-1,0]]
+
+        def valid(r, c):
+            return 0<=r<len(grid) and 0<=c<len(grid[0]) and grid[r][c] == "1"
+
+        def dfs(r, c):
+            #iterate based on the node
+            for dir_r, dir_c in directions:
+                next_r = r + dir_r
+                next_c = c + dir_c
+                if valid(next_r, next_c) and (next_r, next_c) not in seen:
+                    seen.add((next_r, next_c))
+                    dfs(next_r,next_c)
+
+
+        islands = 0
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if (r, c) not in seen and grid[r][c] == "1":
+                    islands += 1
+                    seen.add((r,c))
+                    dfs(r, c)
+        return islands

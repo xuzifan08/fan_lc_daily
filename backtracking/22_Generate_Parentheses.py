@@ -71,3 +71,26 @@ class Solution:
 
 
         return res
+    
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        # ["((()))","(()())","(())()","()(())","()()()"]
+        def backtrack(curr, open, close):
+            if open == close == n:
+                res.append("".join(curr))
+                return
+
+            if open < n:
+                curr.append("(")
+                backtrack(curr, open + 1, close)
+                curr.pop()
+
+            if open > close:
+                curr.append(")")
+                backtrack(curr, open, close + 1)
+                curr.pop()
+
+        backtrack([],0,0)
+        return res
