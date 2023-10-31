@@ -54,3 +54,37 @@ class Solution:
                 dfs(i)
 
         return province
+    
+
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        # build a graph as a hashmap with node and it's neighbors
+        city = collections.defaultdict(list)
+        row = len(isConnected)
+        col = len(isConnected[0])
+
+        for r in range(row):
+            for c in range(r+1, col):
+                if isConnected[r][c] == 1:
+                    city[r].append(c)
+                    city[c].append(r)
+        
+
+        visited_city = set()
+
+        def dfs(c):
+            for nei in city[c]:
+                if nei not in visited_city:
+                    visited_city.add(nei)
+                    dfs(nei)
+
+
+        province = 0
+
+        for i in range(len(isConnected)):
+            if i not in visited_city:
+                province += 1
+                visited_city.add(i)
+                dfs(i)
+
+        return province

@@ -69,3 +69,38 @@ class Solution:
 
 
         return output 
+    
+from collections import deque
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+
+        def dfs(node, parent):
+            if not node:
+                return None
+            
+            node.parent = parent
+            dfs(node.left, node)
+            dfs(node.right, node)
+        
+        dfs(root, None)
+
+        seen = {target}
+
+        q = deque([(target, 0)])
+        res = []
+
+        while q:
+            node, distance = q.popleft()
+
+            if distance == k:
+                res.append(node.val)
+            if distance > k:
+                break
+
+            for nei in [node.left, node.right, node.parent]:
+                if nei and nei not in seen:
+                    seen.add(nei)
+                    q.append((nei, distance + 1))
+
+        return res

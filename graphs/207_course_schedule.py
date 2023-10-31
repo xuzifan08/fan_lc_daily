@@ -87,3 +87,33 @@ class Solution:
                 return False
 
         return True
+    
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        pre_crs = {i: [] for i in range(numCourses)}
+
+        for crs, pre in prerequisites:
+            pre_crs[crs].append(pre)
+
+        visited = set()
+
+        def dfs(crs):
+            if crs in visited:
+                return False
+            if pre_crs[crs] == []:
+                return True
+
+            visited.add(crs)
+            for pre in pre_crs[crs]:
+                if not dfs(pre):
+                    return False
+            visited.remove(crs)
+            pre_crs[crs] = []
+            return True
+            
+
+        for crs in range(numCourses):
+            if not dfs(crs):
+                return False
+
+        return True

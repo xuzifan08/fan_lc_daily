@@ -88,3 +88,36 @@ class Solution:
                     visited.add((next_r, next_c))
 
         return -1
+    
+
+from collections import deque
+class Solution:
+    def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
+        if grid[0][0]!= 0:
+            return -1
+        
+        directions = [[0,1],[0,-1],[1,0],[-1,0],[1,1],[-1,-1],[1,-1],[-1,1]]
+
+        def valid(r, c):
+            return 0<=r< len(grid) and 0<=c< len(grid[0]) and grid[r][c] == 0
+
+        q = deque()
+        q.append((0, 0, 1)) # row, col, length
+        seen = set()
+
+        while q:
+            r, c, length = q.popleft()
+
+            if r == len(grid) -1 and c == len(grid[0])-1:
+                return length
+
+            for dir_r, dir_c in directions:
+                next_r = dir_r + r
+                next_c = dir_c + c
+
+                if (next_r, next_c) not in seen and valid(next_r, next_c):
+                    seen.add((next_r, next_c))
+                    q.append((next_r, next_c,length + 1))
+
+            
+        return -1
