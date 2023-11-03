@@ -30,3 +30,22 @@ class Solution:
                 nums[write] = nums[read]
                 read += 1
         return write + 1
+    
+
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        # [0,1,2,1,1,2,2,3,3,4]
+        #        w
+        #.               r 
+        write = 0
+        read = 0
+
+        while read < len(nums):
+            while read < len(nums) and nums[write] == nums[read]:
+                read += 1
+            if read < len(nums) and nums[read]!= nums[write]:
+                write += 1
+                nums[write] = nums[read]
+                read += 1
+
+        return write + 1

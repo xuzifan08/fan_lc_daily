@@ -53,3 +53,19 @@ class Solution:
                 ptr_t += 1
 
         return True if ptr_s >= len(s) else False
+    
+
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        ptr_t = 0
+        ptr_s = 0
+
+        while ptr_s < len(s) and ptr_t < len(t):
+            while ptr_t < len(t) and s[ptr_s]!= t[ptr_t]:
+                ptr_t += 1
+            if ptr_t < len(t) and s[ptr_s] == t[ptr_t]:
+                ptr_t += 1
+                ptr_s += 1
+            
+        
+        return True if ptr_s == len(s) else False
