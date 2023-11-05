@@ -15,3 +15,22 @@ class Solution:
             pre_sum[curr_sum] += 1
 
         return res
+    
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        # [1,2,3]
+        presum = collections.defaultdict(int)
+        presum[0] = 1
+
+        runing_sum = 0
+        res = 0
+
+        for num in nums:
+            runing_sum += num
+
+            if runing_sum - k in presum:
+                res += presum[runing_sum - k]
+
+            presum[runing_sum] += 1
+
+        return res

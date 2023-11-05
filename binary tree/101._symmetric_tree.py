@@ -52,3 +52,24 @@ class Solution:
             return False
 
         return self.is_recur(left.left, right.right) and self.is_recur(left.right, right.left)
+
+
+
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+        
+        return self.is_mirror(root.left, root.right)
+
+    def is_mirror(self, left, right):
+        if not left and not right:
+            return True
+
+        if not left or not right:
+            return False
+        
+        if left.val!=right.val:
+            return False
+
+        return self.is_mirror(left.left, right.right) and self.is_mirror(left.right, right.left)

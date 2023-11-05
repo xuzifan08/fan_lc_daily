@@ -34,3 +34,21 @@ class Solution:
                 stack.append(ele)
         print(stack)
         return '/' + '/'.join(stack)
+    
+
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        path = path.split('/')
+        stack = []
+
+        for p in path:
+            if p == '.' or p == '' or (p == '..' and not stack):
+                continue
+
+            elif p =='..' and stack:
+                stack.pop()
+
+            else:
+                stack.append(p)
+
+        return '/' + "/".join(stack)
