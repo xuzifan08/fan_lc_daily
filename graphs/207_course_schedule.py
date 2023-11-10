@@ -117,3 +117,37 @@ class Solution:
                 return False
 
         return True
+
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        pre_crs = collections.defaultdict(list)
+
+        for crs, pre in prerequisites:
+            pre_crs[crs].append(pre)
+
+        seen = set()
+        
+        def dfs(crs):
+            if pre_crs[crs] == []:
+                return True
+            if crs in seen:
+                return False
+
+            seen.add(crs)
+
+            for pre in pre_crs[crs]:
+                if not dfs(pre):
+                    return False
+            seen.remove(crs)
+            pre_crs[crs] = []
+            return True# if we can finish this crs
+
+
+
+        for i in range(numCourses):
+            if not dfs(i):
+                return False
+
+
+        return True

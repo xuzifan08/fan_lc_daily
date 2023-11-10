@@ -104,3 +104,39 @@ class Solution:
                     q.append((nei, distance + 1))
 
         return res
+    
+
+from collections import deque
+
+class Solution:
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
+        # change it to graph
+        def dfs(node, parent):
+            if not node:
+                return
+
+            node.parent = parent
+            dfs(node.left, node)
+            dfs(node.right, node)
+
+        dfs(root, None)
+        # use bfs starting from target
+
+        queue = collections.deque([(target,0)])
+        res = []
+        seen = {target}
+
+        while queue:
+            node, distance = queue.popleft()
+
+            if distance == k:
+                res.append(node.val)
+            if distance > k:
+                break
+
+            for nei in [node.left, node.right, node.parent]:
+                if nei and nei not in seen:
+                    queue.append([nei, distance + 1])
+                    seen.add(nei)
+
+        return res
