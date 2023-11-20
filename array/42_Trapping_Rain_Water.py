@@ -80,3 +80,31 @@ class Solution:
 
 # [3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1, 0]maxR
 
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        # need the max of the left, right for each column
+        max_l = [0] * len(height)
+        max_r = [0] * len(height)
+
+        max_l_now = height[0]
+
+        for i in range(1, len(height)):
+            max_l[i] = max_l_now
+            max_l_now = max(max_l_now, height[i])
+
+
+        max_r_now = height[-1]
+
+        for j in range(len(height) -2,-1,-1):
+            max_r[j] = max_r_now
+            max_r_now = max(max_r_now, height[j])
+        print(max_l)
+        print(max_r)
+        water = 0
+
+        for w in range(len(height)):
+            water += max(0,min(max_l[w], max_r[w]) - height[w])
+
+
+        return water

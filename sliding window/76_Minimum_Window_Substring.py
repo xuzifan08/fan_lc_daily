@@ -143,3 +143,36 @@ class Solution:
         left, right = res
 
         return s[left:right+ 1] if min_size!= len(s)+1 else ""
+    
+
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        # found all the diff char
+        # and num of char found too
+        t_count = collections.Counter(t)
+        need = len(t_count)
+        have = 0
+        s_found = collections.defaultdict(int)
+        left = 0
+        res = [-1,-1]
+        min_size = len(s) + 1
+
+        for right in range(len(s)):
+            s_found[s[right]] += 1
+            if s[right] in t_count and t_count[s[right]] == s_found[s[right]]:
+                have += 1
+
+            while have == need:
+                if right - left + 1 < min_size:
+                    res = [left, right]
+                    min_size = right - left + 1
+
+                s_found[s[left]] -= 1
+                if s[left] in t_count and s_found[s[left]] < t_count[s[left]]:
+                    have -= 1
+                left += 1
+                
+        l, r = res
+
+        return s[l:r + 1]

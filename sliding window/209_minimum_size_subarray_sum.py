@@ -82,3 +82,23 @@ class Solution:
                 left += 1
         
         return min_len if min_len != len(nums) + 1 else 0
+    
+
+class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        # [2,3,1,2,4,3]
+        #  l
+        #. r
+        min_len = len(nums) + 1
+        cur_sum = 0
+        left = 0
+        
+        for right in range(len(nums)):
+            cur_sum += nums[right]
+
+            while cur_sum >= target:
+                min_len = min(right - left + 1, min_len)
+                cur_sum -= nums[left]
+                left += 1
+
+        return min_len if min_len!= len(nums) + 1 else 0
