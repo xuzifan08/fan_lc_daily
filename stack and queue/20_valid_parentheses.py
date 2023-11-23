@@ -82,3 +82,24 @@ class Solution:
                 stack.append(char)
 
         return True if not stack else False
+    
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        check = {
+            '(': ')',
+            '{': '}',
+            '[': ']'
+        }
+
+        stack = []
+
+        for char in s:
+            if char in check:
+                stack.append(char)
+            elif stack and stack[-1] in check and check[stack[-1]] == char:
+                stack.pop()
+            else:
+                stack.append(char)
+
+        return not stack
