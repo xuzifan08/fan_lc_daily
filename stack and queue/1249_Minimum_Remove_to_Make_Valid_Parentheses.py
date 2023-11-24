@@ -29,3 +29,33 @@ class Solution:
             else:
                 res = string + res
         return res
+    
+
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        # "lee(t(c)o)de)"
+        # stack = [)]
+
+        # "a)b(c)d"
+        # stack[)]
+        stack = []
+
+        for i, c in enumerate(s):
+            if c == '(':
+                stack.append(i)
+            elif c == ')' and stack and s[stack[-1]] == '(':
+                stack.pop()
+            elif c == ')':
+                stack.append(i)
+        
+        res = ''
+        indices = set(stack)
+
+        for i, c in enumerate(s):
+            if i in indices:
+                continue
+
+            else:
+                res += c
+
+        return res
