@@ -86,3 +86,24 @@ class Solution:
                 return mid
 
         return left
+    
+
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        # [1,3,5,7] target = 4
+        #  0,1,2,3 
+        #.     l     
+        #.     r   
+        left = 0
+        right = len(nums)
+
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid + 1
+            elif nums[mid] > target:
+                right = mid
+
+        return left
