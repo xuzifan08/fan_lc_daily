@@ -12,3 +12,24 @@ class Solution:
             see_freq.add(cnt)
 
         return res
+    
+import heapq
+class Solution:
+    def minDeletions(self, s: str) -> int:
+        count = collections.Counter(s)
+        freq = count.values()
+        freq = [-f for f in freq if f != 0]
+        heapq.heapify(freq)
+
+        delete = 0
+        while len(freq) > 1:
+            top = -heapq.heappop(freq)
+            
+            if top == -freq[0]:
+                if top - 1 > 0 :
+                    top -= 1
+                    heappush(freq, -top)
+
+                delete += 1
+
+        return delete
