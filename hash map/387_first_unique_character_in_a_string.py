@@ -10,6 +10,3 @@ class Solution:
                 else:
                     seen.add(v)
         return -1
-        
-        
-

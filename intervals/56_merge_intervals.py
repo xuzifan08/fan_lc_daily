@@ -38,3 +38,26 @@ class Solution:
         res.append([start, end])
 
         return res
+    
+
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        # [[1,3],[2,6],[8,10],[15,18]]
+        #. ---
+        #.   ---
+        intervals = sorted(intervals,key=lambda x: x[0])
+        start, end = intervals[0]
+        print(start, end)
+        res = []
+
+        for new_s, new_e in intervals[1:]:
+            if end < new_s:
+                res.append([start, end])
+                start = new_s
+                end = new_e
+
+            elif end >= new_s and end <= new_e:
+                end = new_e
+
+        res.append([start, end])
+        return res
