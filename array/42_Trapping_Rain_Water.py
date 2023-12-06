@@ -75,7 +75,7 @@ class Solution:
         return water
 
 # [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]height
-#           l              r
+#           l  r            
 # [0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]maxL
 
 # [3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 1, 0]maxR
@@ -106,5 +106,53 @@ class Solution:
         for w in range(len(height)):
             water += max(0,min(max_l[w], max_r[w]) - height[w])
 
+
+        return water
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        # for each one, min of max left and max right
+        max_left = [0] * len(height)
+        max_right = [0] * len(height)
+
+        max_l = 0
+
+        for i in range(len(height)):
+            max_left[i] = max_l
+            max_l = max(max_l, height[i])
+
+        max_r = 0
+
+        for j in range(len(height) - 1, -1, -1):
+            max_right[j] = max_r
+            max_r = max(max_r, height[j])
+
+
+        water = 0
+
+        for w in range(len(height)):
+            water += max(min(max_left[w], max_right[w]) - height[w],0)
+
+        return water
+    
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        # for each one, min of max left and max right
+        l = 0 
+        r = len(height) - 1
+        water = 0
+        maxL = height[l]
+        maxR = height[r]
+
+        while l < r:
+            if height[l] < height[r]:
+                l += 1
+                water += max(maxL - height[l],0)
+                maxL = max(maxL, height[l])
+            else:
+                r -= 1
+                water += max(maxR - height[r],0)
+                maxR = max(maxR, height[r])
 
         return water
